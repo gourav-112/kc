@@ -33,7 +33,7 @@ func SubmitJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Start transaction
-	tx, err := dbs.db.Begin()
+	tx, err := dbs.Db.Begin()
 	if err != nil {
 		log.Println("Database Transaction Begin Error:", err)
 		http.Error(w, `{ "error": "Database transaction failed" }`, http.StatusInternalServerError)
@@ -99,7 +99,7 @@ func SubmitJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Process job asynchronously
-	go helper.processJob(int(jobID))
+	go helper.ProcessJob(int(jobID))
 
 	// Respond with job ID
 	w.WriteHeader(http.StatusCreated)
@@ -115,7 +115,7 @@ func GetJobStatusHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var job global.Job
-	err := dbs.db.QueryRow("SELECT id, status FROM jobs WHERE id = ?", jobIDStr).Scan(&job.ID, &job.Status)
+	err := dbs.Db.QueryRow("SELECT id, status FROM jobs WHERE id = ?", jobIDStr).Scan(&job.ID, &job.Status)
 	if err != nil {
 		http.Error(w, `{ "error": "Job not found" }`, http.StatusBadRequest)
 		return

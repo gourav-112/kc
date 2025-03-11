@@ -1,4 +1,4 @@
-module kc
+module github.com/gourav-112/kc
 
 go 1.24.0
 

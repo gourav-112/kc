@@ -1,4 +1,4 @@
-package main
+package helper
 
 import (
 	"fmt"
@@ -11,8 +11,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func processJob(jobID int) {
-	rows, err := dbs.db.Query("SELECT image_url FROM images WHERE job_id = ?", jobID)
+func ProcessJob(jobID int) {
+	rows, err := dbs.Db.Query("SELECT image_url FROM images WHERE job_id = ?", jobID)
 	if err != nil {
 		fmt.Println("Error fetching images:", err)
 		updateJobStatus(jobID, global.StatusFailed)
@@ -48,7 +48,7 @@ func processJob(jobID int) {
 			if !success {
 				status = global.StatusFailed
 			}
-			_, err := dbs.db.Exec("UPDATE images SET status = ? WHERE job_id = ? AND image_url = ?", status, jobID, img)
+			_, err := dbs.Db.Exec("UPDATE images SET status = ? WHERE job_id = ? AND image_url = ?", status, jobID, img)
 			if err != nil {
 				fmt.Println("Error updating image status:", err)
 			}
@@ -82,7 +82,7 @@ func processImage(imageURL string) bool {
 
 // Helper function to update job status
 func updateJobStatus(jobID int, status global.JobStatus) {
-	_, err := dbs.db.Exec("UPDATE jobs SET status = ? WHERE id = ?", status, jobID)
+	_, err := dbs.Db.Exec("UPDATE jobs SET status = ? WHERE id = ?", status, jobID)
 	if err != nil {
 		fmt.Println("Error updating job status:", err)
 	}

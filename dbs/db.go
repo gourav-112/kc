@@ -9,19 +9,19 @@ import (
 )
 
 var (
-	db    *sql.DB
+	Db    *sql.DB
 	mutex = sync.Mutex{}
 )
 
 // Initialize Database
-func initDB() {
+func InitDB() {
 	var err error
-	db, err = sql.Open("sqlite3", "kirana_club.db")
+	Db, err = sql.Open("sqlite3", "kirana_club.db")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, err = db.Exec(`
+	_, err = Db.Exec(`
 		DROP TABLE IF EXISTS jobs;
 		DROP TABLE IF EXISTS store_visits;
 		DROP TABLE IF EXISTS images;

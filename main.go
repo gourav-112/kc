@@ -2,14 +2,12 @@ package main
 
 import (
 	"fmt"
-	"kc/service"
 	"math/rand"
 	"net/http"
 	"time"
 
+	"github.com/gourav-112/kc/service"
 	"github.com/gourav-112/kc/dbs"
-	"github.com/gourav-112/kc/helper"
-	"github.com/gourav-112/kc/sevice"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -105,12 +103,12 @@ import (
 // 	}
 
 // 	// Start transaction
-// 	tx, err := db.Begin()
-// 	if err != nil {
-// 		log.Println("Database Transaction Begin Error:", err)
-// 		http.Error(w, `{ "error": "Database transaction failed" }`, http.StatusInternalServerError)
-// 		return
-// 	}
+	// tx, err := db.Begin()
+	// if err != nil {
+	// 	log.Println("Database Transaction Begin Error:", err)
+	// 	http.Error(w, `{ "error": "Database transaction failed" }`, http.StatusInternalServerError)
+	// 	return
+	// }
 
 // 	// Insert job entry
 // 	result, err := tx.Exec("INSERT INTO jobs (status) VALUES (?)", StatusOngoing)
@@ -276,7 +274,7 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	dbs.initDB()
+	dbs.InitDB()
 
 	http.HandleFunc("/api/submit", service.SubmitJobHandler)
 	http.HandleFunc("/api/status", service.GetJobStatusHandler)
