@@ -1,7 +1,7 @@
-# Kirana Club
+# KC
 
 ## Overview
-Kirana Club is a job-processing system designed to handle multiple store visits within a single job. Each store visit contains multiple images, and the job is considered **completed** only when all images are processed successfully. If any image processing fails, the job is marked as **failed**. The system uses **Golang** for backend development and **GORM** as an ORM to interact with an SQLite database.
+This is a job-processing system designed to handle multiple store visits within a single job. Each store visit contains multiple images, and the job is considered **completed** only when all images are processed successfully. If any image processing fails, the job is marked as **failed**. The system uses **Golang** for backend development and SQLite database.
 
 ## Features
 - Submit a job containing multiple store visits and images.
