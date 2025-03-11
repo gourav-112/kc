@@ -22,9 +22,6 @@ func InitDB() {
 	}
 
 	_, err = Db.Exec(`
-		DROP TABLE IF EXISTS jobs;
-		DROP TABLE IF EXISTS store_visits;
-		DROP TABLE IF EXISTS images;
 
 		CREATE TABLE jobs (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
