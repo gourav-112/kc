@@ -1,15 +1,6 @@
 package global
 
 import (
-	"database/sql"
-	"encoding/json"
-	"fmt"
-	"log"
-	"math/rand"
-	"net/http"
-	"sync"
-	"time"
-
 	_ "github.com/mattn/go-sqlite3"
 )
 

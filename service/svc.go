@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-
+	"github.com/gourav-112/kc/global"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -39,7 +39,7 @@ func submitJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Insert job entry
-	result, err := tx.Exec("INSERT INTO jobs (status) VALUES (?)", StatusOngoing)
+	result, err := tx.Exec("INSERT INTO jobs (status) VALUES (?)", global.StatusOngoing)
 	if err != nil {
 		log.Println("Error inserting job:", err)
 		tx.Rollback()
@@ -79,7 +79,7 @@ func submitJobHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Insert images linked to store visit
 		for _, imageURL := range visit.ImageURLs {
-			_, err := tx.Exec("INSERT INTO images (visit_id, image_url, status) VALUES (?, ?, ?)", visitID, imageURL, StatusOngoing)
+			_, err := tx.Exec("INSERT INTO images (visit_id, image_url, status) VALUES (?, ?, ?)", visitID, imageURL, global.StatusOngoing)
 			if err != nil {
 				log.Println("Error inserting image for store_id", visit.StoreID, ":", err)
 				tx.Rollback()
