@@ -1,4 +1,4 @@
-module kirana-club
+module kc
 
 go 1.24.0
 
