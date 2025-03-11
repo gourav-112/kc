@@ -7,7 +7,7 @@ Kirana Club is a job-processing system designed to handle multiple store visits 
 - Submit a job containing multiple store visits and images.
 - Track the status of a job.
 - Concurrent image processing with a success/failure mechanism.
-- Uses **GORM** for easy database management.
+- Uses **SQLite** for easy database management.
 
 ## Project Structure
 ```
@@ -51,6 +51,13 @@ go mod tidy
 go run main.go
 ```
 The server will start at `http://localhost:8080/`
+
+---
+
+
+## My Work Environment
+- OS -> Windows 11 (Home)
+- IDE used -> Visual Studio Code
 
 ---
 
@@ -136,6 +143,15 @@ The system uses **GORM** for database interactions. The tables are structured as
 4. If all images are processed successfully, the **job is marked as completed**.
 5. If any image fails, the **job is marked as failed**.
 6. The **status API** helps in tracking the job status.
+
+---
+
+## Further Scope
+- **GORM** and **GIN** can be used for optimized database handling.
+- More APIs can be written for the extension of services.
+- Messaging queues can be used.
+- NewRelic and be used for better execution of transactions.
+- Better error handling can be done.
 
 ---
 
