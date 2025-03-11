@@ -154,5 +154,5 @@ This project is open-source under the **MIT License**.
 ## Contact
 For any queries or issues, feel free to reach out!
 
-📧 Email: gourav112@example.com  
+📧 Email: gouravbeniwal1746@gmail.com  
 📌 GitHub Issues: [Report an issue](https://github.com/gourav-112/kc/issues)
