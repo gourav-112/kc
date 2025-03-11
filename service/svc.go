@@ -5,11 +5,13 @@ import (
 	"log"
 	"net/http"
 	"github.com/gourav-112/kc/global"
+	"github.com/gourav-112/kc/helper"
+	"github.com/gourav-112/kc/dbs"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 // Submit Job API
-func submitJobHandler(w http.ResponseWriter, r *http.Request) {
+func SubmitJobHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
@@ -31,7 +33,7 @@ func submitJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Start transaction
-	tx, err := db.Begin()
+	tx, err := dbs.db.Begin()
 	if err != nil {
 		log.Println("Database Transaction Begin Error:", err)
 		http.Error(w, `{ "error": "Database transaction failed" }`, http.StatusInternalServerError)
@@ -97,7 +99,7 @@ func submitJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Process job asynchronously
-	go processJob(int(jobID))
+	go helper.processJob(int(jobID))
 
 	// Respond with job ID
 	w.WriteHeader(http.StatusCreated)
@@ -105,15 +107,15 @@ func submitJobHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Get Job Status API
-func getJobStatusHandler(w http.ResponseWriter, r *http.Request) {
+func GetJobStatusHandler(w http.ResponseWriter, r *http.Request) {
 	jobIDStr := r.URL.Query().Get("jobid")
 	if jobIDStr == "" {
 		http.Error(w, `{ "error": "Missing jobid" }`, http.StatusBadRequest)
 		return
 	}
 
-	var job Job
-	err := db.QueryRow("SELECT id, status FROM jobs WHERE id = ?", jobIDStr).Scan(&job.ID, &job.Status)
+	var job global.Job
+	err := dbs.db.QueryRow("SELECT id, status FROM jobs WHERE id = ?", jobIDStr).Scan(&job.ID, &job.Status)
 	if err != nil {
 		http.Error(w, `{ "error": "Job not found" }`, http.StatusBadRequest)
 		return
